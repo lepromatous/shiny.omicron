@@ -28,7 +28,7 @@ mod_main_ui <- function (id) {
                 value = "country",
                 Tab(value = "country", label = "By Country"),
                 Tab(value = "map", label = "Maps"),
-                Tab(value = "lineage", label = "By Lineage")
+                Tab(value = "heatmap", label = "Heatmaps")
             ),
             TabContent("country",
                 HStack(
@@ -45,7 +45,7 @@ mod_main_ui <- function (id) {
                 HStack(
                     LineageSelector
                 ),
-                plotly::plotlyOutput(ns("lineage_plot"), height = "1000px")
+                plotly::plotlyOutput(ns("heatmap"), height = "1000px")
             ),
             TabContent("map",
                 VStack(
@@ -107,10 +107,10 @@ mod_main_server <- function(id) {
             req(input$tabs == "country")
             plot_proportions(input$country)
         })
-        output$lineage_plot <- plotly::renderPlotly({
+        output$heatmap <- plotly::renderPlotly({
             req(input$lineage)
-            req(input$tabs == "lineage")
-            plot_lineage(input$lineage)
+            req(input$tabs == "heatmaps")
+            plot_heatmap_by_country(input$lineage)
         })
 
         debounced_date <- reactive(input$date) %>% debounce(100)
@@ -164,28 +164,33 @@ plot_proportions <- function(countriez="USA"){
         plotly::ggplotly()
 }
 
-#' Plot Lineage
+#' Heatmap Theme
+#' this is the base theme to apply to all of the heatmaps
+heatmap_theme <- \(lineage) list(
+    geom_tile(position = "dodge", stat = "identity"),
+    labs(
+        x = "\nTwo Week Period Ending",
+        y = "",
+        fill = paste0("Percent ", lineage, "\nof All Variants \n")
+    ),
+    scico::scale_fill_scico(palette = "bilbao"),
+    scale_x_date(date_breaks = "1 month"),
+    theme(
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90),
+        axis.text.y = element_text(size = 5)
+    )
+)
+
+#' Plot Heatmap by Country
 #' plots a heatmap by country and date for a specific variant
 #' @param lineage the omicron lineage to filter by
 #' @return a plotly plot
-plot_lineage <- function(lineage = "BA.1") {
+plot_heatmap_by_country <- function(lineage = "BA.1") {
     (omicron_proportions %>%
         subset(pango == lineage) %>%
         ggplot(aes(week_ending, country, fill = value)) +
-            geom_tile(position = "dodge", stat = "identity") +
-            labs(
-            x = "\nTwo Week Period Ending",
-            y = "",
-            fill = paste0("Percent ", lineage, "\nof All Variants \n")
-            ) +
-            scico::scale_fill_scico(palette = "bilbao") +
-            scale_x_date(date_breaks = "1 month") +
-            theme(
-            panel.grid.major.x = element_blank(),
-            legend.position = "bottom",
-            axis.text.x = element_text(angle = 90),
-            axis.text.y = element_text(size = 5)
-            )) %>%
+            heatmap_theme(lineage)) %>%
             plotly::ggplotly()
 }
 #' Prepare Maps
