@@ -75,8 +75,12 @@ mod_main_server <- function(id) {
 #' @return a plotly plot
 #' @import dplyr
 plot_proportions <- function(countriez="USA"){
-    (shiny.covariants::omicron_proportions %>%
-        subset(country == countriez & omicron == T) %>%
+    shiny.covariants::omicron_proportions %>%
+        subset(country == countriez & omicron == T) -> filtered
+
+    req(nrow(filtered) > 0)
+
+    (filtered %>%
         select(-c(country, omicron)) %>%
         # pivot wider and replace NA with 0 then make long again
         tidyr::pivot_wider(names_from = pango) %>%
