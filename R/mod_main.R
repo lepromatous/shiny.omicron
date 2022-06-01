@@ -256,7 +256,7 @@ map_variant <- function(pangoz, weekz, quintile = TRUE) {
     if (quintile == TRUE) {
         df$map_breaks <- cut(df$value, breaks = c(0, 20, 40, 60, 80, 100),
                             include.lowest = TRUE, dig.lab = 3)
-        df$map_breaks <- fct_explicit_na(df$map_breaks)
+        df$map_breaks <- forcats::fct_explicit_na(df$map_breaks)
         levels(df$map_breaks) <- c(
             "19.9 or less",
             "20-39.9",

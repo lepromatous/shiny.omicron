@@ -20,7 +20,8 @@ Imports:
     shiny.quartz,
     ggquartz,
     sf,
-    RColorBrewer
+    RColorBrewer,
+    forcats
 Remotes: 
     github::quartzsoftwarellc/shiny.mui,
     github::quartzsoftwarellc/shiny.quartz,

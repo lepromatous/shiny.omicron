@@ -4,6 +4,8 @@ library(tidyiddr)
 df <- tidyiddr::covariants_country(bust_cache = T)
 lookup <- read.csv("data-raw/pango_lookup_covariants.csv")
 
+
+#' adds final pango columns to intermediate dataframe.
 add_pango <- function(.data) {
   .data %>%
     drop_na() %>%
