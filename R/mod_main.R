@@ -41,9 +41,20 @@ mod_main_ui <- function (id) {
                 ),
                 plotly::plotlyOutput(ns("proportions_plot")),
             ),
-            TabContent("lineage",
-                HStack(
-                    LineageSelector
+            TabContent("heatmap",
+                VStack(
+                    QSelect.shinyInput(
+                        ns("heatmap_variant"),
+                        label = "Heatmap Type",
+                        options = make_options(
+                            "By Country",
+                            "By Variant"
+                        ),
+                        value = "By Country"
+                    ),
+                    conditionalPanel(condition = "input.heatmap_variant == 'By Country'", ns = ns,
+                        LineageSelector,
+                    )
                 ),
                 plotly::plotlyOutput(ns("heatmap"), height = "1000px")
             ),
@@ -108,9 +119,14 @@ mod_main_server <- function(id) {
             plot_proportions(input$country)
         })
         output$heatmap <- plotly::renderPlotly({
-            req(input$lineage)
-            req(input$tabs == "heatmaps")
-            plot_heatmap_by_country(input$lineage)
+            req(input$tabs == "heatmap")
+            req(input$heatmap_variant)
+            if(input$heatmap_variant == "By Variant") {
+                plot_heatmap_by_lineage()
+            } else {
+                req(input$lineage)
+                plot_heatmap_by_country(input$lineage)
+            }
         })
 
         debounced_date <- reactive(input$date) %>% debounce(100)
@@ -182,12 +198,21 @@ heatmap_theme <- \(lineage) list(
     )
 )
 
+#' Plot Heatmap By Lineage
+#' plots a heatmap of proportion of each variant globally to give a sense of dominant variant over time.
+plot_heatmap_by_lineage <- function() {
+    (shiny.omicron::omicron_global_proportions %>%
+        ggplot(aes(week_ending, pango, fill = value)) +
+            heatmap_theme("")) %>%
+            plotly::ggplotly()
+}
+
 #' Plot Heatmap by Country
 #' plots a heatmap by country and date for a specific variant
 #' @param lineage the omicron lineage to filter by
 #' @return a plotly plot
 plot_heatmap_by_country <- function(lineage = "BA.1") {
-    (omicron_proportions %>%
+    (shiny.omicron::omicron_proportions %>%
         subset(pango == lineage) %>%
         ggplot(aes(week_ending, country, fill = value)) +
             heatmap_theme(lineage)) %>%

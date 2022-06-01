@@ -8,7 +8,7 @@ add_pango <- function(.data) {
   .data %>%
     drop_na() %>%
     # add pango lookup names
-    merge(lookup, by.x = "name", by.y = "variant") %>%
+    merge(lookup, by.x = "name", by.y = "variant", all.x = F) %>%
     mutate(
       omicron = grepl("omicron", name),
       pango =  as.factor(pango)
@@ -42,7 +42,7 @@ tmp1 %>%
   ungroup() %>%
   group_by(week_ending, name) %>%
   summarise(
-    value = sum(value) / first(total) %>% round(2) %>% replace(. == 0, NA)
+    value = sum(value, na.rm = T) / first(total) %>% round(2) %>% replace(. == 0, NA)
   ) %>%
   ungroup() %>%
   add_pango() %>%
@@ -53,4 +53,5 @@ variant_list  <- sort(unique(omicron_proportions$pango))
 dates_list <- sort(unique(omicron_proportions$week_ending))
 
 usethis::use_data(variant_list, omicron_proportions, dates_list, overwrite = T)
+usethis::use_data(omicron_global_proportions, overwrite = T)
 
