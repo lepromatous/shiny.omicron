@@ -5,7 +5,7 @@
 \title{Map Variant
 map based on a selected variant for a given week}
 \usage{
-map_variant(.data, pangoz, weekz, quintile = TRUE)
+map_variant(pangoz, weekz, quintile = TRUE)
 }
 \arguments{
 \item{pangoz}{variant lineage}

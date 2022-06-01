@@ -5,11 +5,9 @@
 \title{Map Dominan Variant
 map based on the most prevalent variant for a given week}
 \usage{
-map_dominant_variant(.data, weekz)
+map_dominant_variant(weekz)
 }
 \arguments{
-\item{.data}{}
-
 \item{weekz}{week ending}
 }
 \value{

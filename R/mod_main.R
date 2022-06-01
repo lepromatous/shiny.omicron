@@ -25,9 +25,9 @@ mod_main_ui <- function (id) {
         VStack(
             Tabs.shinyInput(
                 ns("tabs"),
-                value = "map",
-                Tab(value = "map", label = "Maps"),
+                value = "country",
                 Tab(value = "country", label = "By Country"),
+                Tab(value = "map", label = "Maps"),
                 Tab(value = "lineage", label = "By Lineage")
             ),
             TabContent("country",
@@ -284,7 +284,7 @@ map_variant <- function(pangoz, weekz, quintile = TRUE) {
 #' @return a plotly plot
 #' @import ggplot2
 #' @import RColorBrewer
-#' @importFrom dplyr group_by, distinct
+#' @importFrom dplyr group_by distinct
 map_dominant_variant <- function(weekz) {
     # prepare data
     df <- shiny.omicron::omicron_proportions %>%
