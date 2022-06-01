@@ -11,10 +11,12 @@ app_server <- function(input, output, session) {
 
 app_ui <- function(request) {
     shiny.quartz::Page(
-        "main",
+        "SARS-CoV-2 Variant and Lineage Investigator",
         mod_main_ui("main")
     )
 }
+
+ggquartz::apply_theme()
 
 
 #' @export

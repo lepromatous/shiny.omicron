@@ -11,8 +11,11 @@ Imports:
     magrittr,
     shiny.mui,
     pkgload,
+    tidyr,
     dplyr,
     ggplot2,
+    plotly,
+    scico,
     shiny,
     shiny.quartz,
     ggquartz
