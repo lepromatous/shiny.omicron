@@ -1,12 +1,12 @@
-name: shiny.covariants
-title: shiny.covariants
+name: shiny.omicron
+title: shiny.omicron
 username:
 account: surveillance
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5490123
 bundleId: 5760991
-url: https://surveillance.shinyapps.io/shiny.covariants/
+url: https://surveillance.shinyapps.io/shiny.omicron/
 when: 1649042347.32691
 lastSyncTime: 1649042347.32692
 asMultiple: FALSE

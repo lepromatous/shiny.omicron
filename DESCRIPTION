@@ -1,4 +1,4 @@
-Package: shiny.covariants
+Package: shiny.omicron
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: person('Jacob', ,'Clarke', email = 'jacobclarke718@gmail.com', role = c('cre', 'aut'))
@@ -18,7 +18,9 @@ Imports:
     scico,
     shiny,
     shiny.quartz,
-    ggquartz
+    ggquartz,
+    sf,
+    RColorBrewer
 Remotes: 
     github::quartzsoftwarellc/shiny.mui,
     github::quartzsoftwarellc/shiny.quartz,

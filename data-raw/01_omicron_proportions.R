@@ -30,5 +30,7 @@ df %>%
 
 variant_list <- sort(unique(omicron_proportions$pango))
 
-usethis::use_data(variant_list, omicron_proportions, overwrite = T)
+dates_list <- sort(unique(omicron_proportions$week_ending))
+
+usethis::use_data(variant_list, omicron_proportions, dates_list, overwrite = T)
 
