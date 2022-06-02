@@ -3,7 +3,7 @@
 #' @noRd
 #' @importFrom shiny NS tagList
 #' @import shiny.quartz
-#' @import shiny.mui
+#' @importFrom shiny.mui Tabs.shinyInput Tab
 #' @import ggplot2
 mod_main_ui <- function (id) {
     ns <- NS(id)
@@ -92,6 +92,7 @@ mod_main_ui <- function (id) {
 #' main Server Funciton
 #'
 #' @noRd
+#' @import shiny
 mod_main_server <- function(id) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
@@ -160,7 +161,7 @@ plot_proportions <- function(countriez="USA"){
         select(-c(country, omicron)) %>%
         # pivot wider and replace NA with 0 then make long again
         tidyr::pivot_wider(names_from = pango) %>%
-        mutate(dplyr:::across(where(is.numeric), ~ replace(.x, is.na(.x), 0))) %>%
+        mutate(dplyr::across(where(is.numeric), ~ replace(.x, is.na(.x), 0))) %>%
         tidyr::pivot_longer(
             -c(week_ending),
         ) %>%
@@ -182,6 +183,7 @@ plot_proportions <- function(countriez="USA"){
 
 #' Heatmap Theme
 #' this is the base theme to apply to all of the heatmaps
+#' @param lineage name of lineage used to identify fill in legend
 heatmap_theme <- \(lineage) list(
     geom_tile(position = "dodge", stat = "identity"),
     labs(
@@ -242,7 +244,7 @@ theme_map <- \() list(
 #' map based on a selected variant for a given week
 #' @param pangoz variant lineage
 #' @param weekz week ending
-#' @param quantile whether or not to split data into quintiles
+#' @param quintile whether or not to split data into quintiles
 #' @return a plotly plot
 #' @import ggplot2
 #' @import RColorBrewer

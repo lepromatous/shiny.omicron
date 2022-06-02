@@ -12,7 +12,7 @@ map_variant(pangoz, weekz, quintile = TRUE)
 
 \item{weekz}{week ending}
 
-\item{quantile}{whether or not to split data into quintiles}
+\item{quintile}{whether or not to split data into quintiles}
 }
 \value{
 a plotly plot

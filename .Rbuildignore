@@ -5,3 +5,9 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+app.R
+dev
+rsconnect
+.rscignore
+.github
+.vscode

@@ -18,14 +18,16 @@ Imports:
     scico,
     shiny,
     shiny.quartz,
+    shiny.react,
     ggquartz,
     sf,
     RColorBrewer,
     forcats
 Remotes: 
-    github::quartzsoftwarellc/shiny.mui,
-    github::quartzsoftwarellc/shiny.quartz,
-    github::quartzsoftwarellc/ggquartz
+    quartzsoftwarellc/shiny.mui,
+    quartzsoftwarellc/shiny.quartz,
+    quartzsoftwarellc/ggquartz,
+    appsilon/shiny.react
 Depends: 
     R (>= 2.10)
 LazyData: true

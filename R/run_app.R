@@ -29,11 +29,12 @@ app_ui <- function(request) {
     )
 }
 
-ggquartz::apply_theme()
 
 
 #' @export
 run_app <- function() {
+    ggquartz::apply_theme()
+
     shiny::shinyApp(
         server = app_server,
         ui = app_ui,
