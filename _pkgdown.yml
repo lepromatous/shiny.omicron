@@ -1,0 +1,9 @@
+url: https://quartzsoftwarellc.github.io/shiny.omicron/
+template:
+  bootstrap: 5
+repo:
+  url:
+    home: https://github.com/quartzsoftwarellc/shiny.omicron/
+    source: https://github.com/quartzsoftwarellc/shiny.omicron/HEAD/
+    issue: https://github.com/quartzsoftwarellc/shiny.omicron/issues/
+    user: https://github.com/quartzsoftwarellc/
