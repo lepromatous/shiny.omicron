@@ -153,8 +153,9 @@ mod_main_server <- function(id) {
 #' @import dplyr
 plot_proportions <- function(countriez="USA"){
     shiny.omicron::omicron_proportions %>%
-        subset(country == countriez & omicron == T) -> filtered
-
+        subset(
+            country == countriez
+        ) -> filtered
     req(nrow(filtered) > 0)
 
     (filtered %>%

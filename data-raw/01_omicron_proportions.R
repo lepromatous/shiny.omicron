@@ -36,7 +36,8 @@ tmp1 %>%
     value = replace(value, value == 0, NA),
     country = as.factor(country)
   ) %>%
-  add_pango() -> omicron_proportions
+  add_pango() %>%
+    subset(pango != "") -> omicron_proportions
 
 tmp1 %>% 
   group_by(week_ending) %>%
