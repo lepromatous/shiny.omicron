@@ -28,6 +28,6 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
       - name: Deploy
         run: |
-          rsconnect::setAccountInfo(name='surveillance', token='${{ env.SHINYAPPS_TOKEN }}', secret='${{ secrets.SHINYAPPS_SECRET }}')
+          rsconnect::setAccountInfo(name='surveillance', appName = "omicron", token='${{ env.SHINYAPPS_TOKEN }}', secret='${{ secrets.SHINYAPPS_SECRET }}')
           rsconnect::deployApp()
         shell: Rscript {0}
